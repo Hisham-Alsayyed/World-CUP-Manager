@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIFA World Cup 2026 Manager</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+       <!-- LANDING PAGE -->
+  <div id="landingPage">
+
+    <div class="landing-bg"></div>
+
+    <div class="landing-content">
+
+      <div class="landing-logo">
+        <div class="logo-ring">
+          <span class="logo-emoji">🏆</span>
+        </div>
+      </div>
+
+      <!-- Main titles -->
+      <h1 class="landing-title">WORLD CUP</h1>
+      <h2 class="landing-year">2026</h2>
+      <p class="landing-host">🇺🇸 USA &nbsp;·&nbsp; 🇨🇦 Canada &nbsp;·&nbsp; 🇲🇽 Mexico</p>
+
+      <!-- Gold divider -->
+      <div class="landing-divider"></div>
+
+      <!-- Stats grid -->
+      <div class="landing-info-grid">
+        <div class="info-card">
+          <div class="info-icon">⚽</div>
+          <div class="info-label">Teams</div>
+          <div class="info-value">16</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🗂️</div>
+          <div class="info-label">Groups</div>
+          <div class="info-value">4</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🎯</div>
+          <div class="info-label">Matches</div>
+          <div class="info-value">28</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📅</div>
+          <div class="info-label">Rounds</div>
+          <div class="info-value">4</div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="landing-desc">
+        Manage the full tournament from Group Stage to the Final.<br/>
+        Enter scores, track standings, and crown the 2026 Champion!
+      </p>
+
+      <!-- CTA -->
+      <button class="btn-start" onclick="startTournament()">
+        <i class="bi bi-play-fill"></i>
+        Start Tournament
+      </button>
+
+      <p class="landing-dates">June 8 – July 19, 2026</p>
+
+    </div>
+  </div>
+
+
+       <!-- TOURNAMENT PAGE -->
+  <div id="tournamentPage" class="d-none">
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="header-bg-pattern"></div>
+      <div class="header-stadium-lines"></div>
+      <div class="container-fluid px-4">
+        <div class="header-inner">
+
+          <!-- Reset — left -->
+          <div class="header-side header-side-left">
+            <button class="btn-header-reset" onclick="resetTournament()">
+              <i class="bi bi-arrow-counterclockwise"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <!-- Center logo block -->
+          <div class="header-center">
+            <div class="header-logo-block">
+              <div class="header-trophy-badge">
+                <i class="bi bi-trophy-fill"></i>
+              </div>
+              <div class="header-title-group">
+                <h1 class="site-title mb-0">WORLD CUP</h1>
+                <div class="header-year-strip">
+                  <span class="header-year">2026</span>
+                  <span class="header-hosts">🇺🇸 USA &nbsp;·&nbsp; 🇨🇦 Canada &nbsp;·&nbsp; 🇲🇽 Mexico</span>
+                </div>
+              </div>
+              <div class="header-trophy-badge">
+                <i class="bi bi-trophy-fill"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right placeholder -->
+          <div class="header-side header-side-right"></div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Champion banner — shown after tournament ends -->
+    <div id="championBanner" style="display:none; background:rgba(4,8,18,0.92); border-top:1px solid rgba(255,215,0,0.15); border-bottom:1px solid rgba(255,215,0,0.3); padding:10px 20px; text-align:center; backdrop-filter:blur(16px);">
+      <span style="font-size:1.3rem;">🏆</span>
+      <span style="font-size:0.58rem; font-weight:800; letter-spacing:4px; color:#7A8BA6; text-transform:uppercase; margin:0 16px;">2026 World Cup Champion</span>
+      <span id="championBannerName" style="font-family:'Bebas Neue',sans-serif; font-size:1.75rem; letter-spacing:5px; color:#FFD700; text-shadow:0 0 24px rgba(255,215,0,0.6);"></span>
+      <span style="font-size:1.3rem; margin-left:16px;">🏆</span>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="container-fluid px-4" id="app"></div>
+    </main>
+
+  </div>
+
+
+
+  <!-- Hidden trigger -->
+  <button
+    id="championModalTrigger"
+    data-bs-toggle="modal"
+    data-bs-target="#championModal"
+    style="display:none;">
+  </button>
+
+  <div class="modal fade" id="championModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content champion-modal-content">
+        <div class="modal-body text-center p-5">
+          <div class="champion-trophy-anim mb-3">🏆</div>
+          <h2 class="champion-title mb-2">World Cup Champion</h2>
+          <h1 class="champion-name mb-4" id="championName">---</h1>
+          <p style="color:var(--text-muted); margin-bottom:1.8rem; font-size:0.9rem; letter-spacing:1px;">Congratulations — FIFA World Cup 2026 Winner!</p>
+          <button class="btn-reset btn-lg" onclick="resetTournament()">
+            <i class="bi bi-arrow-counterclockwise me-2"></i>
+            Reset Tournament
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
